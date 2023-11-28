@@ -1,0 +1,51 @@
+{% extends 'base2.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+    <body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-10 col-md-7 col-lg-5 signup-login-box"><!-- start signup & login box -->
+                <img src="{% static 'images/logo.png' %}">
+                <form method="post">
+                    {% csrf_token %}
+                    {% if form.phone.errors %}
+                        <div class="input-group signup-login-form mobile-number"><!-- start mobile number input -->
+                            {{ form.phone.errors }}
+                        </div><!-- end mobile number input -->
+
+                    {% endif %}
+
+                    <div class="input-group signup-login-form mobile-number"><!-- start mobile number input -->
+                        {{ form.phone | attr:'placeholder:شماره موبایل' }}
+                    </div><!-- end mobile number input -->
+
+                    <!- https://t.me/sabzrea ->
+                    <div class="signup-login-form">
+                        <div class="form-check text-center"><!-- start input check -->
+                            <input class="form-check-input form-check-input-custom" type="checkbox" id="customCheck"
+                                   checked>
+                            <label class="form-check-label line-height" for="customCheck">
+                                <a href="#" class="underline">حریم خصوصی</a> و <a href="#" class="underline">شرایط و
+                                قوانین</a> استفاده از سرویس های سایت نیک کالا را مطالعه نموده و با کلیه موارد آن موافقم.
+                            </label>
+                        </div><!-- end input check -->
+                    </div>
+
+                    <button type="submit" class="btn btn-danger d-block font-12 mx-auto signup-btn mb-4">
+                        <!-- signup btn -->
+                        مرحله بعدی
+                    </button>
+
+                    <p>قبلا در نیک کالا ثبت‌ نام کرده‌اید؟ <a href="login.html" class="underline">وارد شویــد</a></p>
+
+                </form>
+            </div><!-- end signup & login box -->
+        </div>
+    </div>
+
+
+{% endblock %}

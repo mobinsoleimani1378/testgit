@@ -1,0 +1,61 @@
+{% extends 'base2.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+
+{% block content %}
+    <body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-10 col-md-7 col-lg-5 signup-login-box"><!-- start signup & login box -->
+                <img src="{% static 'images/logo.png' %}">
+                <form method="post"><!- https://t.me/sabzrea ->
+                    {% csrf_token %}
+                    {% if form.non_field_errors %}
+                        <div class="input-group signup-login-form mobile-number"><!-- start mobile number input -->
+                            {{ form.errors }}
+                        </div><!-- end mobile number input -->
+
+                    {% endif %}
+                    {% if form.phone.errors %}
+                        <div class="input-group signup-login-form mobile-number"><!-- start mobile number input -->
+                            {{ form.phone.errors }}
+                        </div><!-- end mobile number input -->
+
+                    {% endif %}
+
+                    <div class="input-group signup-login-form mobile-number"><!-- start mobile number input -->
+                        {{ form.phone | attr:'placeholder:شماره موبایل' }}
+                    </div><!-- end mobile number input -->
+
+                    <div class="input-group signup-login-form password"><!-- start password input -->
+                        {{ form.password  | attr:'placeholder:رمزعبور' }}
+                    </div><!-- end password input -->
+
+                    <div class="signup-login-form">
+                        <div class="form-check"><!-- start input check -->
+                            <input class="form-check-input form-check-input-custom" type="checkbox" id="customCheck"
+                                   checked>
+                            <label class="form-check-label line-height ps-1" for="customCheck">
+                                مرا به خاطر داشته باش
+                            </label>
+                        </div><!-- end input check --><!- https://t.me/sabzrea ->
+                    </div>
+
+                    <button type="submit" class="btn btn-danger d-block font-12 mx-auto mb-4 login-btn">
+                        <!-- login btn -->
+                        ورود
+                    </button>
+
+                    <p>کاربر جدید هستید؟ <a href="signup.html" class="underline">ثبت‌ نام در نیک کالا </a></p>
+                    <p>رمز عبور خود را فراموش کرده اید ؟<a href="remember-password.html" class="underline"> بازیابی رمز
+                        عبور </a></p>
+
+                </form>
+            </div><!-- end signup & login box -->
+        </div>
+    </div>
+
+
+{% endblock %}
