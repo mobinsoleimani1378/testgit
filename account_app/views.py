@@ -7,13 +7,14 @@ from django.contrib.auth import login, logout, authenticate
 
 
 def signup(request):
-    user = request.user
-    form = RegisterForm(instance=user)
-    if request.method == 'POST':
-        form = RegisterForm(data=request.POST, instance=user)
-        if form.is_valid():
-            form.save()
-            login(request, user)
+    if request.user.is_authenticated:
+        user = request.user
+        form = RegisterForm(instance=user)
+        if request.method == 'POST':
+            form = RegisterForm(data=request.POST, instance=user)
+            if form.is_valid():
+                form.save()
+                login(request, user)
 
     return render(request, 'account_app/signup.html', {'form': form})
 
@@ -83,3 +84,6 @@ def signin(request):
 
 def home(request):
     return render(request, 'account_app/home.html')
+
+def home_test(request):
+    return render(request, 'account_app/home_test.html')
