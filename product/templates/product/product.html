@@ -1,0 +1,667 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block main_1 %}
+    <div class="container"><!-- start breadcrumb -->
+        <div class="row mt-3">
+            <div class="col-12">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#" class="breadcrumb-custom">فروشگاه اینترنتی نیک کالا</a></li>
+                    <li class="breadcrumb-item"><a href="#" class="breadcrumb-custom">کالای دیجیتال</a></li>
+                    <li class="breadcrumb-item"><a href="#" class="breadcrumb-custom">گوشی موبایل</a></li>
+                    <li class="breadcrumb-item"><a href="#" class="breadcrumb-custom">سامسونگ</a></li>
+                    <li class="breadcrumb-item"><a href="#" class="breadcrumb-custom">Galaxy Note 10 Plus N975F/DS</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div><!-- end breadcrumb -->
+    <main><!-- start main -->
+        <div class="container">
+
+            <div class="product-content"><!-- start product content -->
+                <div class="row">
+                    <div class="col-lg-4 col-12">
+                        <div class="row">
+                            <div class="col-1 text-center product-icons"><!-- start product icons -->
+                                <i class="far fa-heart heart d-block my-4" data-bs-toggle="tooltip"
+                                   data-bs-placement="top" title="افزودن به علاقمندی ها"></i>
+                                <span data-bs-toggle="modal" data-bs-target="#share-modal"><i
+                                        class="fa fa-share-alt share d-block my-4" data-bs-toggle="tooltip"
+                                        data-bs-placement="top" title="اشتراک گذاری"></i></span>
+                                <div class="modal fade" id="share-modal"><!-- start share modal -->
+                                    <div class="modal-dialog  modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <p class="modal-title font-13">اشتراک گذاری</p>
+                                                <button type="button" class="btn-close"
+                                                        data-bs-dismiss="modal"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p class="font-12">این کالا را با دوستان خود به اشتراک بگذارید!</p>
+                                                <a href="#" class="btn btn-share"><i class="fa fa-copy me-2"></i>کپی
+                                                    کردن لینک</a>
+                                                <div class="d-flex justify-content-center mt-4">
+                                                    <a href="#"><i
+                                                            class="fab fa-instagram text-danger social-media"></i></a>
+                                                    <a href="#"><i
+                                                            class="fab fa-telegram text-info social-media"></i></a>
+                                                    <a href="#"><i
+                                                            class="fab fa-whatsapp text-success social-media"></i></a>
+                                                    <a href="#"><i class="fab fa-twitter text-primary social-media"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!-- end share modal -->
+                                <i class="fas fa-random random d-block my-4" data-bs-toggle="tooltip"
+                                   data-bs-placement="top" title="مقایسه کالا"></i>
+                            </div><!-- end product icons -->
+
+                            <div class="col-11 pb-5 mb-3"><!-- start product slider pic -->
+                                <div class="carousel slide pb-5 product-slider-2" id="product-slider"
+                                     data-bs-ride="carousel">
+                                    <div class="carousel-indicators carousel-indicator-custom">
+                                        <button type="button" data-bs-target="#product-slider" data-bs-slide-to="0"
+                                                class="active">
+                                            <img src="{{ product.img.url }}" class="d-block w-100">
+                                        </button>
+                                    </div>
+                                    <div class="carousel-inner">
+                                        <div class="carousel-item active">
+                                            <img src="{{ product.img.url }}" class="d-block w-100">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- end product slider pic -->
+                        </div>
+                    </div>
+
+                        <div class="col-lg-5 col-md-8 product-details"><!-- start product details -->
+                            <p>گوشی موبایل سامسونگ مدل Galaxy Note 10 Plus N975F/DS دو سیم‌کارت ظرفیت 256 گیگابایت </p>
+
+                            {% for cat in product.category.all %}
+                                <p class="d-inline-block">{{ cat }} </p>
+                                <p class="d-inline-block ms-5"></p>
+                            {% endfor %}
+                            {#                        <p class="d-inline-block ms-5">برند : سامسونگ</p>#}
+                        <form action="{% url 'cart:cart_add' product.id %}" method="post">
+                        {% csrf_token %}
+                            {% if product.size.all %}
+                                <p>انتخاب سایز :</p>
+                                <!- https://t.me/sabzrea ->
+                                {% for size in product.size.all %}
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" class="custom-control-input" value="{{ size.title }}"
+                                               id="{{ size.title }}" name="size">
+                                        <label class="custom-control-label"
+                                               for="{{ size.title }}">{{ size.title }}</label>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                            <p>انتخاب رنگ :</p>
+                            <!- https://t.me/sabzrea ->
+                            {% for color in product.color.all %}
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" class="custom-control-input" value="{{ color.title }}"
+                                           id="{{ color.title }}" name="color">
+                                    <label class="custom-control-label"
+                                           for="{{ color.title }}">{{ color.title }}</label>
+                                </div>
+                            {% endfor %}
+
+
+                            <!- https://t.me/sabzrea ->
+                            <p class="mt-4">ویژگی های محصول :</p>
+                            <ul class="font-13 ps-1">
+                                {% for information in product.informations.all %}
+                                    <li class="mt-3"><i
+                                            class="fa fa-check align-middle text-primary me-2"></i>{{ information }}
+                                    </li>
+                                {% endfor %}
+
+                            </ul>
+
+                            <div class="alert alert-warning font-12 line-height text-justify mt-4">
+                                هشدار سامانه همتا: حتما در زمان تحویل دستگاه، به کمک کد فعال‌سازی چاپ شده روی جعبه یا
+                                کارت
+                                گارانتی، دستگاه را
+                                از طریق #7777*، برای سیم‌کارت خود فعال‌سازی کنید. آموزش تصویری در آدرس اینترنتی
+                                hmti.ir/05
+                            </div>
+
+                        </div><!-- end product details -->
+                        <div class="col-lg-3 col-md-4"><!-- start add to cart box -->
+                            <div class="add-cart-box">
+                                <div class="product-seller-row">
+                                    <span>فروشنده :</span>
+                                    <span>نیک کالا</span>
+                                </div>
+                                <div class="product-seller-row">
+                                    <span>گارانتی:</span>
+                                    <span>18 ماهه سامسونگ</span>
+                                </div>
+                                <div class="product-seller-row">
+                                    <span>وضعیت :</span>
+                                    <span>موجود در انبار</span>
+                                </div>
+                                <!- https://t.me/sabzrea ->
+                                <div class="product-seller-row">
+                                    <span>قیمت :</span>
+                                    <span class="text-danger">14,350,000 تومان</span>
+                                </div>
+                                <div class="input-group quantity mr-3" style="width: 130px;">
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn btn-primary btn-minus">
+                                            <i class="fa fa-minus"></i>
+                                        </button>
+                                    </div>
+                                    <input type="text" name="quantity"
+                                           class="form-control bg-secondary border-0 text-center"
+                                           value="1">
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn btn-primary btn-plus">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <button class="btn add-cart-btn">افزودن به سبد خرید</button>
+                            </div>
+                        </div><!-- end add to cart box -->
+                    </form>
+                </div>
+            </div><!-- end product content -->
+
+            <div class="d-none d-lg-block product-delivery-icons"><!-- start product delivery icons -->
+                <div class="row">
+                    <div class="col-6 col-sm text-center"><i class="fa fa-shipping-fast"></i>
+                        <p>تحویل اکسپرس</p></div>
+                    <div class="col-6 col-sm text-center"><i class="fa fa-headset"></i>
+                        <p> پشتیبانی 24 ساعته </p></div>
+                    <div class="col-6 col-sm text-center"><i class="fa fa-credit-card"></i>
+                        <p>پرداخت در محل</p></div>
+                    <div class="col-6 col-sm text-center"><i class="fa fa-box"></i>
+                        <p>7 روز ضمانت بازگشت کالا</p></div>
+                    <div class="col-12 col-sm text-center"><i class="fa fa-medal"></i>
+                        <p>ضمانت اصالت کالا</p></div>
+                </div>
+            </div><!-- end product delivery icons -->
+
+            <div class="row"><!-- start ads -->
+                <div class="col-12 mb-3">
+                    <a href="#" class="d-block" target="_blank"><img src="assets/images/ads7.jpg" class="ads-img"></a>
+                </div>
+            </div><!-- end ads -->
+
+            <div class="product-tab-content"><!-- start product tab content -->
+                <div class="row pb-3">
+                    <div class="col-12">
+                        <!- https://t.me/sabzrea ->
+                        <ul class="nav nav-pills custom-nav-pills"><!-- start  tabs -->
+                            <li class="nav-item"><a href="#description" data-bs-toggle="tab" class="nav-link active">نقد
+                                و بررسی</a></li>
+                            <li class="nav-item"><a href="#detail" data-bs-toggle="tab" class="nav-link">مشخصات</a></li>
+                            <li class="nav-item"><a href="#comment" data-bs-toggle="tab" class="nav-link">نظرات
+                                کاربران</a></li>
+                            <li class="nav-item"><a href="#question" data-bs-toggle="tab" class="nav-link">پرسش و
+                                پاسخ </a></li>
+                        </ul><!-- end  tabs -->
+
+                        <div class="tab-content">
+
+                            <div class="tab-pane fade show " id="description"><!-- start description -->
+                                <p class="m-3 font-14">نقد و بررسی اجمالی</p>
+                                <p class="m-3 font-13">Samsung Galaxy S10 Plus SM-G975F/DS Dual SIM 128GB Mobile
+                                    Phone</p>
+                                <p class="font-14 line-height mx-3 text-justify">در دنیای امروزی ما، گوشی‌های همراه
+                                    اسمارت یکی از اعضای خانواده‌های ما شده و بسیاری از کارهایی که در روزمره
+                                    انجام می‌دهیم، الزام به وجود آن‌ها دارد. با پیشرفت تکنولوژی این گوشی‌ها هم روزانه
+                                    دارای تغییرات و پیشرفت می‌شوند. یکی از کمپانی‌های بزرگ و مطرح در سطح جهانی سامسونگ
+                                    است که گوشی‌هایی با محبوبیت و طرف‌داری بالایی تولید می‌کند و سالانه فروش بسیاری از
+                                    بازار را به‌دلیل کیفیت به خود اختصاص می‌دهد. گوشی موبایل سامسونگ مدل Galaxy S20 FE
+                                    SM-G780F/DS دو سیم کارت ظرفیت 128 گیگابایت یکی
+                                    از همان گوشی‌های باکیفیت این برند است که می‌تواند تمامی نیازهای ما مانند وب‌گردی،
+                                    بازی آفلاین و آنلاین، تماشای فیلم و کلیپ، شبکه‌های اجتماعی، کار با Applications
+                                    (نرم‌افزارها) و بسیاری دیگر را انجام دهید.
+                                </p>
+                                <img src="assets/images/mobile-banner.jpg" class="mobile-banner">
+                                <p class="font-14 line-height mx-3 text-justify">گفتنی است که این گوشی با تمامی
+                                    قابلیت‌هایی که دارد، یک گوشی پرچمدار است. یکی از ویژگی‌های این گوشی باتری آن است.
+                                    برای گوشی Galaxy S20 FE باتری لیتیوم-پلیمری با ظرفیت ۴۵۰۰ میلی‌آمپرساعت در نظر
+                                    گرفته‌اند که شما می‌تواند با خیالی آسوده به کار کردن با گوشی بپردازید. شما اگر این
+                                    گوشی را با باتری ۱۰۰ درصد
+                                    در اختیار داشته باشد می‌توانید در ۱ یا ۳ روز تمامی ظرفیت باتری آن استفاده کنید و این
+                                    موضوع کاملا به نوع استفاده شما بستگی دارد.
+                                    از این گوشی می‌توانید استفاده‌های بسیار متنوع و باکیفیتی در عکاسی داشته باشید.
+                                    پردازنده مرکزی (CPU) و پردازنده گرافیکی (GPU) این گوشی به‌اندازه‌ای قدرت دارند که
+                                    می‌توانید بازی‌های روز آنلاین و آفلاین با Graphic Map بزرگ و برنامه‌های محاسباتی و
+                                    عملیاتی را اجرا کنید. این گوشی دارای ۱۲۸ گیگابایت حافظه
+                                    داخلی و ۸ گیگابایت حافظه RAM (رَم) است. گوشی سامسونگ Galaxy S20 FE دارای دوربین
+                                    سه‌گانه در پشت گوشی بوده که دارای کیفیت‌های ۱۲، ۸ و ۱۲ مگاپیکسل بوده که هرکدام دارای
+                                    کارایی و استفاده‌ای متفاوتی در انواع عکاسی‌های شما هستند. دوربین عکاسی سلفی Galaxy
+                                    S20 FE دارای لنز عریض (Wide) با رزولوشن ۳۲ مگاپیکسل بوده که می‌توانید
+                                    عکاسی‌های باکیفیتی از خود، به‌همراه دوستان یا در هر محیط و طبیعتی داشته باشید.
+                                </p>
+                            </div><!-- end description -->
+
+                            <div class="tab-pane fade show active" id="detail"><!-- start detail -->
+                                <p class="mt-3 mx-3 font-14"><i
+                                        class="fa fa-chevron-left align-middle text-danger font-12 me-1"></i> مشخصات فنی
+                                </p>
+
+                                {% for foo in b %}
+                                    <div class="row mx-3">
+                                        <div class="col-sm-4 mb-2">
+                                            <div class="box-line">{{ foo.title }}</div>
+                                        </div>
+                                        <div class="col-sm-8 mb-2">
+                                            <div class="box-line">{{ foo.text }} </div>
+                                        </div>
+                                    </div>
+                                    <!- https://t.me/sabzrea ->
+
+                                {% endfor %}
+
+
+                                <p class="mt-3 mx-3 font-13"><i
+                                        class="fa fa-chevron-left align-middle text-danger font-12 me-1"></i>پردازنده
+                                </p>
+
+                                {% for foo in d %}
+                                    <div class="row mx-3">
+                                        <div class="col-sm-4 mb-2">
+                                            <div class="box-line">{{ foo.title }}</div>
+                                        </div>
+                                        <div class="col-sm-8 mb-2">
+                                            <div class="box-line">{{ foo.text }}</div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+
+
+                            </div><!-- end detail -->
+
+                            <div class="tab-pane fade show" id="comment"><!-- start comment -->
+                                <p class="m-3 font-14">امتیاز کاربران</p>
+                                <div class="row mx-3">
+
+                                    <div class="col-md-6 rating-result"><!-- start ratig result-->
+
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span class="font-12">کیفیت ساخت:</span>
+                                            <span class="font-12">خوب</span>
+                                        </div>
+                                        <div class="progress mb-3">
+                                            <div class="progress-bar bg-info" style="width:60%;"></div>
+                                        </div>
+
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span class="font-12">ارزش خرید به نسبت قیمت:</span>
+                                            <span class="font-12">عالی</span>
+                                        </div>
+                                        <div class="progress mb-3">
+                                            <div class="progress-bar bg-info" style="width:80%;"></div>
+                                        </div>
+
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span class="font-12">امکانات و قابلیت ها:</span>
+                                            <span class="font-12">خوب</span>
+                                        </div>
+                                        <div class="progress mb-3">
+                                            <div class="progress-bar bg-info" style="width:50%;"></div>
+                                        </div>
+
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span class="font-12">نوآوری :</span>
+                                            <span class="font-12">خوب</span>
+                                        </div>
+                                        <div class="progress mb-3">
+                                            <div class="progress-bar bg-info" style="width:75%;"></div>
+                                        </div>
+
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span class="font-12">طراحی و ظاهر :</span>
+                                            <span class="font-12">عالی</span>
+                                        </div>
+                                        <div class="progress mb-3">
+                                            <div class="progress-bar bg-info" style="width:90%;"></div>
+                                        </div>
+
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span class="font-12">سهولت استفاده :</span>
+                                            <span class="font-12">خوب</span>
+                                        </div>
+                                        <div class="progress mb-3">
+                                            <div class="progress-bar bg-info" style="width:80%;"></div>
+                                        </div>
+
+                                    </div><!-- end ratig result-->
+
+                                    <div class="col-md-6 add-comment"><!-- start add comment box -->
+                                        <p>شما هم درباره این کالا دیدگاه ثبت کنید</p>
+                                        <p>برای ثبت نظر، لازم است ابتدا وارد حساب کاربری خود شوید.
+                                            اگر این محصول را قبلا از نیک کالا خریده باشید، نظر شما به عنوان مالک محصول
+                                            ثبت خواهد شد.
+                                        </p>
+                                        <a href="send-comment.html"
+                                           class="btn btn-secondary font-13 px-4 py-2 mt-3 ms-3">افزودن نظر جدید</a>
+                                    </div><!-- ens add comment box -->
+
+                                </div>
+
+                                <div class="row mx-3">
+                                    <div class="col-12">
+                                        <p class="font-13 my-4">نظرات کاربران (437)</p>
+
+                                        <div class="row border-bottom mb-4"><!-- start user comment box -->
+                                            <div class="col-lg-3 col-md-4 col-12"><!-- start comment info -->
+                                                <div class="comment-info">
+                                                    <p class="font-13 my-2">محمدرضا بهرامی</p>
+                                                    <p class="font-12 text-muted my-3">24 فروردین 1402 </p>
+                                                    <div class="star-box">
+                                                        <i class="fa fa-star font-12 ms-1 text-warning"></i>
+                                                        <i class="fa fa-star font-12 ms-1 text-warning"></i>
+                                                        <i class="fa fa-star font-12 ms-1 text-warning"></i>
+                                                        <i class="fa fa-star font-12 ms-1 text-warning"></i>
+                                                        <i class="fa fa-star font-12 ms-1 text-muted"></i>
+                                                    </div>
+                                                    <p class="font-12 text-muted border border-info rounded d-inline-block p-2">
+                                                        <i class="fa fa-thumbs-up font-13 text-info"></i> خرید این محصول
+                                                        را توصیه می‌کنم</p>
+                                                </div>
+                                            </div><!-- end comment info -->
+                                            <div class="col-lg-9 col-md-8 col-12"><!-- start comment text -->
+                                                <p class="font-14">عالی و صدرصد بهتر از اپل</p>
+                                                <p class="font-13 line-height">کیفیت صفحه فوق العاده و شارژدهی عالی .
+                                                    بدنه اش اول که به دستم رسید
+                                                    یه مشکی براق خوشگل بود. اما متاسفانه اثر انگشت زیاد روش میوفته و
+                                                    زودم خش میوفته جنسش میتونست بهتر باشه.من خیلی گرون خریدم قیمت الانش
+                                                    عالیه. تحقیقتون رو قبل خرید بکنید .
+                                                </p>
+                                                <div class="row">
+                                                    <div class="col-md-4 col-6 ">
+                                                        <span class="font-13 text-info"> نقاط قوت </span>
+                                                        <ul class="ps-2 pt-0 positve-point">
+                                                            <li class="font-13  my-2">سبک</li>
+                                                            <li class="font-13  my-2"> صفحه نمایش عالی</li>
+                                                            <li class="font-13  my-2">سرعت پردازش بالا</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col-md-4 col-6">
+                                                        <span class="font-13 text-danger"> نقاط ضعف </span>
+                                                        <ul class="ps-2 pt-0 negative-point">
+                                                            <li class="font-13 my-2">قیمت زیاد</li>
+                                                            <li class="font-13  my-2"> باتری ضعیف</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col-12 mb-3 text-end">
+                                                        <span class="font-13 text-muted d-block mb-3">آیا این نظر برایتان مفید بود؟</span>
+                                                        <a href="#" class="font-13 text-muted ms-2 border p-1 rounded">بله
+                                                            (12) <i class="fa fa-thumbs-up text-info"></i></a>
+                                                        <span class="text-muted">|</span>
+                                                        <a href="#" class="font-13 text-muted border p-1 rounded">خیر
+                                                            (4) <i class="fa fa-thumbs-down text-danger"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div><!-- end comment text -->
+                                        </div><!-- end user comment box -->
+
+                                        <div class="row border-bottom mb-4"><!-- start user comment box -->
+                                            <div class="col-lg-3 col-md-4 col-12"><!-- start comment info -->
+                                                <div class="comment-info">
+                                                    <p class="font-13 my-2">محمدرضا بهرامی</p>
+                                                    <p class="font-12 text-muted my-3">24 فروردین 1402 </p>
+                                                    <div class="star-box">
+                                                        <i class="fa fa-star font-12 ms-1 text-warning"></i>
+                                                        <i class="fa fa-star font-12 ms-1 text-warning"></i>
+                                                        <i class="fa fa-star font-12 ms-1 text-warning"></i>
+                                                        <i class="fa fa-star font-12 ms-1 text-warning"></i>
+                                                        <i class="fa fa-star font-12 ms-1 text-muted"></i>
+                                                    </div>
+                                                    <p class="font-12 text-muted border border-danger rounded d-inline-block p-2">
+                                                        <i class="fa fa-thumbs-down font-13 text-danger"></i> خرید این
+                                                        محصول را توصیه نمی‌کنم</p>
+                                                </div>
+                                            </div><!-- end comment info -->
+                                            <div class="col-lg-9 col-md-8 col-12"><!-- start comment text -->
+                                                <p class="font-14">عالی و صدرصد بهتر از اپل</p>
+                                                <p class="font-13 line-height">کیفیت صفحه فوق العاده و شارژدهی عالی .
+                                                    بدنه اش اول که به دستم رسید
+                                                    یه مشکی براق خوشگل بود. اما متاسفانه اثر انگشت زیاد روش میوفته و
+                                                    زودم خش میوفته جنسش میتونست بهتر باشه.من خیلی گرون خریدم قیمت الانش
+                                                    عالیه. تحقیقتون رو قبل خرید بکنید .
+                                                </p>
+                                                <div class="row">
+                                                    <div class="col-md-4 col-6 ">
+                                                        <span class="font-13 text-info"> نقاط قوت </span>
+                                                        <ul class="ps-2 pt-0 positve-point">
+                                                            <li class="font-13  my-2">سبک</li>
+                                                            <li class="font-13  my-2"> صفحه نمایش عالی</li>
+                                                            <li class="font-13  my-2">سرعت پردازش بالا</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col-md-4 col-6">
+                                                        <span class="font-13 text-danger"> نقاط ضعف </span>
+                                                        <ul class="ps-2 pt-0 negative-point">
+                                                            <li class="font-13 my-2">قیمت زیاد</li>
+                                                            <li class="font-13  my-2"> باتری ضعیف</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col-12 mb-3 text-end">
+                                                        <span class="font-13 text-muted d-block mb-3">آیا این نظر برایتان مفید بود؟</span>
+                                                        <a href="#" class="font-13 text-muted ms-2 border p-1 rounded">بله
+                                                            (12) <i class="fa fa-thumbs-up text-info"></i></a>
+                                                        <span class="text-muted">|</span>
+                                                        <a href="#" class="font-13 text-muted border p-1 rounded">خیر
+                                                            (4) <i class="fa fa-thumbs-down text-danger"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div><!-- end comment text -->
+                                        </div><!-- end user comment box -->
+
+                                    </div>
+                                </div>
+
+                                <ul class="custom-pagination"><!-- start pagination -->
+                                    <li><a href="#"><i class="fa fa-angle-right align-middle"></i></a></li>
+                                    <li class="active"><a href="#">1</a></li>
+                                    <li><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li><a href="#">4</a></li>
+                                    <li><a href="#"><i class="fa fa-angle-left align-middle"></i></a></li>
+                                </ul><!-- end pagination -->
+
+                            </div><!-- end comment -->
+
+                            <div class="tab-pane fade show" id="question"><!-- start question -->
+                                <p class="m-3 font-14">پرسش و پاسخ</p>
+                                <p class="m-3 font-13">پرسش خود را در مورد محصول مطرح نمایید</p>
+
+                                <form><!-- start question form -->
+                                    <div class="px-3 mb-3">
+                                        <textarea class="form-control" rows="5"></textarea>
+                                    </div>
+                                    <a href="#" class="btn btn-secondary font-13 px-3 py-2 mx-3 mb-3">ثبت پرسش</a>
+                                    <div class="form-check d-inline-block">
+                                        <input class="form-check-input" type="checkbox" id="check1">
+                                        <label class="form-check-label font-12 text-secondary" for="check1">اولین پاسخی
+                                            که به پرسش من داده شد، از طریق ایمیل به من اطلاع دهید. </label>
+                                    </div>
+                                </form><!-- end question form -->
+
+                                <div class="row mx-3 mt-5"><!-- start question box -->
+                                    <div class="col-12 question-box">
+                                        <div class="question-icon"><i class="fa fa-question"></i></div>
+                                        <div class="question-header">
+                                            <p>پرسش : <span class="font-13 text-secondary">امیرحسین</span></p>
+                                            <p class="font-12 text-secondary">14 اردیبهشت 1402</p>
+                                        </div>
+                                        <div class="question-body py-3">
+                                            <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و
+                                                با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه
+                                                روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی
+                                                تکنولوژی
+                                                مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
+                                            </p>
+                                        </div>
+                                        <div class="question-footer">
+                                            <a href="#" class="font-12 text-info underline">به این پرسش پاسخ دهید</a>
+                                        </div>
+                                    </div>
+                                </div><!-- end question box -->
+
+                                <div class="row mx-3 mt-4 d-flex justify-content-end"><!-- start answer box -->
+                                    <div class="col-11 question-box">
+                                        <div class="question-icon"><i class="fa fa-store"></i></div>
+                                        <div class="question-header">
+                                            <p>پاسخ : <span class="font-13 text-secondary">فروشنده</span></p>
+                                            <p class="font-12 text-secondary">14 اردیبهشت 1402</p>
+                                        </div>
+                                        <div class="question-body py-3">
+                                            <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و
+                                                با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه
+                                                روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی
+                                                تکنولوژی
+                                                مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div><!-- end answer box -->
+
+                            </div><!-- end question -->
+
+                        </div>
+                    </div>
+                </div>
+            </div><!-- end product tab content -->
+
+            <div class="product-slider"><!-- start product slider -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="title">
+                            <h4> محصولات پیشنهادی </h4>
+                        </div>
+                        <div class="owl-carousel owl-theme  custom-product-slider">
+
+                            <div class="item"><!-- start item -->
+                                <a href="product.html">
+                                    <div class="card border-0 custom-card mt-3">
+                                        <img src="assets/images/mobile1.jpg" class="slider-pic">
+                                        <div class="card-body">
+                                            <a href="product.html" class="product-title">گوشی موبایل سامسونگ مدل Galaxy
+                                                A21S SM-A217F/DS</a>
+                                            <div class="d-flex justify-content-between">
+                                                <div class="mt-3 ps-4">
+                                                    <span class="heart"><i
+                                                            class="far fa-heart font-14 text-muted me-2"></i></span>
+                                                    <span class="random"><i
+                                                            class="fa fa-random font-14 text-muted me-2"></i></span>
+                                                    <span class="add-to-cart"><i
+                                                            class="fa fa-cart-plus font-13 text-muted"></i></span>
+                                                </div>
+                                                <p class="font-13 mt-3 pe-4">۴,۱۶۹,۰۰۰تومان</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div><!-- end item -->
+                            <div class="item"><!-- start item -->
+                                <a href="product.html">
+                                    <div class="card border-0 custom-card mt-3">
+                                        <img src="assets/images/mobile2.jpg" class="slider-pic">
+                                        <div class="card-body">
+                                            <a href="product.html" class="product-title">گوشی موبایل سامسونگ مدل Galaxy
+                                                A21S SM-A217F/DS</a>
+                                            <div class="d-flex justify-content-between">
+                                                <div class="mt-3 ps-4">
+                                                    <span class="heart"><i
+                                                            class="far fa-heart font-14 text-muted me-2"></i></span>
+                                                    <span class="random"><i
+                                                            class="fa fa-random font-14 text-muted me-2"></i></span>
+                                                    <span class="add-to-cart"><i
+                                                            class="fa fa-cart-plus font-13 text-muted"></i></span>
+                                                </div>
+                                                <p class="font-13 mt-3 pe-4">۴,۱۶۹,۰۰۰تومان</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div><!-- end item --><!- https://t.me/sab zrea ->
+
+                            <div class="item"><!-- start item -->
+                                <a href="product.html">
+                                    <div class="card border-0 custom-card mt-3">
+                                        <img src="assets/images/mobile3.jpg" class="slider-pic">
+                                        <div class="card-body">
+                                            <a href="product.html" class="product-title">گوشی موبایل سامسونگ مدل Galaxy
+                                                A21S SM-A217F/DS</a>
+                                            <div class="d-flex justify-content-between">
+                                                <div class="mt-3 ps-4">
+                                                    <span class="heart"><i
+                                                            class="far fa-heart font-14 text-muted me-2"></i></span>
+                                                    <span class="random"><i
+                                                            class="fa fa-random font-14 text-muted me-2"></i></span>
+                                                    <span class="add-to-cart"><i
+                                                            class="fa fa-cart-plus font-13 text-muted"></i></span>
+                                                </div>
+                                                <p class="font-13 mt-3 pe-4">۴,۱۶۹,۰۰۰تومان</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div><!-- end item -->
+
+                            <div class="item"><!-- start item -->
+                                <a href="product.html">
+                                    <div class="card border-0 custom-card mt-3">
+                                        <img src="assets/images/mobile4.jpg" class="slider-pic">
+                                        <div class="card-body">
+                                            <a href="product.html" class="product-title">گوشی موبایل سامسونگ مدل Galaxy
+                                                A21S SM-A217F/DS</a>
+                                            <div class="d-flex justify-content-between">
+                                                <div class="mt-3 ps-4">
+                                                    <span class="heart"><i
+                                                            class="far fa-heart font-14 text-muted me-2"></i></span>
+                                                    <span class="random"><i
+                                                            class="fa fa-random font-14 text-muted me-2"></i></span>
+                                                    <span class="add-to-cart"><i
+                                                            class="fa fa-cart-plus font-13 text-muted"></i></span>
+                                                </div>
+                                                <p class="font-13 mt-3 pe-4">۴,۱۶۹,۰۰۰تومان</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div><!-- end item -->
+
+                            <div class="item"><!-- start item -->
+                                <a href="product.html">
+                                    <div class="card border-0 custom-card mt-3">
+                                        <img src="assets/images/mobile2.jpg" class="slider-pic">
+                                        <div class="card-body">
+                                            <a href="product.html" class="product-title">گوشی موبایل سامسونگ مدل Galaxy
+                                                A21S SM-A217F/DS</a>
+                                            <div class="d-flex justify-content-between">
+                                                <div class="mt-3 ps-4">
+                                                    <span class="heart"><i
+                                                            class="far fa-heart font-14 text-muted me-2"></i></span>
+                                                    <span class="random"><i
+                                                            class="fa fa-random font-14 text-muted me-2"></i></span>
+                                                    <span class="add-to-cart"><i
+                                                            class="fa fa-cart-plus font-13 text-muted"></i></span>
+                                                </div>
+                                                <p class="font-13 mt-3 pe-4">۴,۱۶۹,۰۰۰تومان</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div><!-- end item -->
+
+                        </div>
+                    </div>
+                </div>
+            </div><!-- end product slider -->
+
+        </div>
+    </main><!-- end main -->
+{% endblock %}
+
