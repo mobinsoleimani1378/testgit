@@ -1,0 +1,72 @@
+{% extends 'base_2.html' %}
+{% load static %}
+{% block main_1 %}
+    <main><!-- start main -->
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9"><!-- start cart content -->
+                    <div class="cart-content">
+                        <div class="title">
+                            <h4> سبد خرید </h4>
+                        </div>
+                        {% for item in cart %}
+                            <div class="row shopping-cart-item"><!-- start shopping cart item -->
+                                <div class="col-lg-2 col-md-3">
+                                    <a href="product.html" class="d-block"><img src="{{ item.product.img.url }}"
+                                                                                class="img-fluid mb-3"></a>
+                                </div>
+                                <div class="col-lg-5 col-md-6">
+                                    <a href="product.html" class="shopping-cart-title">{{ item.product.title }}</a>
+                                    <p class="shopping-cart-detail"> گارانتی : سامسونگ </p>
+                                    <p class="shopping-cart-detail">رنگ : {{ item.color }}</p>
+                                    <p class="shopping-cart-detail">قیمت واحد : {{ item.product.price }} تومان</p>
+                                </div>
+                                <div class="col-lg-3 col-md-3">
+                                    <div class="button-container d-flex justify-content-start align-items-start mb-3">
+                                        <button class="cart-qty-plus" type="button" value="+">+</button>
+                                        <input type="text" name="quantity" min="0" class="qty form-control text-center"
+                                               value="{{ item.quantity }}">
+                                        <button class="cart-qty-minus" type="button" value="-">-</button>
+                                    </div>
+                                    <p class="shopping-cart-detail">قیمت کل : {{ item.total }} تومان</p>
+                                </div>
+                                <div class="col-lg-2 col-md-12 d-flex justify-content-center align-items-center">
+                                    <a href="{% url 'cart:cart_delete' item.unique_id %}"><i
+                                            class="fa fa-trash delete-icon"></i></a>
+                                </div>
+
+                            </div><!-- end shopping cart item -->
+                        {% endfor %}
+
+
+                    </div>
+                </div><!-- end cart content -->
+
+                <div class="col-lg-3"><!-- start cart box -->
+                    <div class="cart-content">
+                        <div class="product-seller-row">
+                            <span>فروشنده :</span>
+                            <span>نیک کالا</span>
+                        </div>
+                        <div class="product-seller-row">
+                            <span> مبلغ کل (۲ کالا) :</span>
+                            <span>{{ cart.total }} تومان </span>
+                        </div>
+                        <div class="product-seller-row">
+                            <span>هزینه ارسال :</span>
+                            <span>وابسته به آدرس</span>
+                        </div>
+                        <div class="product-seller-row">
+                            <span>نیک کلاب :</span>
+                            <span> ۱۵۰+ امتیاز </span>
+                        </div>
+                        <a href="shopping.html" class="btn add-cart-btn">ادامه و ثبت سفارش</a>
+                        <p class="font-12 text-muted mt-3 line-height text-center"> کالاهای موجود در سبد شما ثبت و رزرو
+                            نشده‌اند، برای ثبت سفارش مراحل بعدی را تکمیل کنید. </p>
+                    </div>
+                </div><!-- end cart box -->
+
+            </div>
+        </div>
+    </main><!-- end main -->
+{% endblock %}
